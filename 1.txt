@@ -1,0 +1,158 @@
+安装mingw , x86_64-4.8.2-release-posix-seh-rt_v3-rev2
+
+E:\software\x86_64-4.8.2-release-posix-seh-rt_v3-rev2\mingw64\bin
+
+
+D:\goworkspace\opensource\IrisAdminApi>go test -v base_test.go
+# command-line-arguments [command-line-arguments.test]
+.\base_test.go:30:2: undefined: Sc
+.\base_test.go:31:7: undefined: getSysConf
+.\base_test.go:34:8: undefined: NewApp
+FAIL    command-line-arguments [build failed]
+FAIL
+
+D:\goworkspace\opensource\IrisAdminApi>go test -v  -test.run TestUsers
+gorm open 成功
+=== RUN   TestUsers
+--- PASS: TestUsers (0.10s)
+    printer.go:85: POST /v1/admin/login HTTP/1.1
+        Content-Type: application/json; charset=utf-8
+
+        {"password":"password","username":"username"}
+    printer.go:102: HTTP/0.0 200 OK 93ms
+        Access-Control-Allow-Credentials: true
+        Access-Control-Expose-Headers: Accept, Content-Type, Content-Length, Ac
+ept-Encoding, X-Csrf-Token, Authorization
+        Content-Type: application/json; charset=UTF-8
+        Vary: Origin
+
+        {"status":true,"msg":"登陆成功","data":{"access_token":"eyJhbGciOiJIUzI
+NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1ODA1NjYyOTIsImlhdCI6MTU4MDU2MjY5Mn0.l7rZu_Nxxt
+fF1eLqN0edxFnYq5RK_Y_NTAJF73v6Ow"}}
+    printer.go:85: GET /v1/admin/users HTTP/1.1
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1
+DA1NjYyOTIsImlhdCI6MTU4MDU2MjY5Mn0.l7rZu_NxxtbfF1eLqN0edxFnYq5RK_Y_NTAJF73v6Ow
+
+    printer.go:102: HTTP/0.0 200 OK 2ms
+        Access-Control-Allow-Credentials: true
+        Access-Control-Expose-Headers: Accept, Content-Type, Content-Length, Ac
+ept-Encoding, X-Csrf-Token, Authorization
+        Content-Type: application/json; charset=UTF-8
+        Vary: Origin
+
+        {"status":true,"msg":"操作成功","data":[{"Id":1,"Name":"name","Username
+:"username","RoleName":"超级管理员","RoleIds":[1],"CreatedAt":"2020-02-01T21:11
+32+08:00"}]}
+PASS
+ok      IrisAdminApi    2.023s
+
+
+
+---------------
+http://localhost:8081/v1/admin/users
+required authorization token not found
+
+
+--------------------------------------------
+D:\goworkspace\opensource\IrisAdminApi>go test -v  -test.run TestUsers
+gorm open 成功
+=== RUN   TestUsers
+--- FAIL: TestUsers (0.10s)
+    printer.go:85: POST /v1/admin/login HTTP/1.1
+        Content-Type: application/json; charset=utf-8
+
+        {"password":"password","username":"username"}
+    printer.go:102: HTTP/0.0 200 OK 93ms
+        Access-Control-Allow-Credentials: true
+        Access-Control-Expose-Headers: Accept, Content-Type, Content-Length, Acc
+ept-Encoding, X-Csrf-Token, Authorization
+        Content-Type: application/json; charset=UTF-8
+        Vary: Origin
+
+        {"status":true,"msg":"登陆成功","data":{"access_token":"eyJhbGciOiJIUzI1
+NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1ODA1NjgzMzcsImlhdCI6MTU4MDU2NDczN30.xeg8o6pXPdB
+iDe7qp0ZMoD4t5hXpTeOhKt9qXVSvLsA"}}
+    printer.go:85: GET /v1/admin/users HTTP/1.1
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1O
+DA1NjgzMzcsImlhdCI6MTU4MDU2NDczN30.xeg8o6pXPdBiDe7qp0ZMoD4t5hXpTeOhKt9qXVSvLsA
+
+    printer.go:102: HTTP/0.0 200 OK 2ms
+        Access-Control-Allow-Credentials: true
+        Access-Control-Expose-Headers: Accept, Content-Type, Content-Length, Acc
+ept-Encoding, X-Csrf-Token, Authorization
+        Content-Type: application/json; charset=UTF-8
+        Vary: Origin
+
+        {"status":true,"msg":"操作成功","data":[{"Id":1,"Name":"name","Username"
+:"username","RoleName":"超级管理员","RoleIds":[1],"CreatedAt":"2020-02-01T21:45:
+37+08:00"}]}
+    reporter.go:23:
+                Error Trace:    reporter.go:23
+                                                        chain.go:21
+                                                        array.go:233
+                                                        base_test.go:116
+                                                        users_test.go:11
+                Error:
+                                expected array containing element:
+                                 "操作成功111111"
+
+                                but got:
+                                 [
+                                   true,
+                                   "操作成功",
+                                   [
+                                     {
+                                       "CreatedAt": "2020-02-01T21:45:37+08:00",
+
+                                       "Id": 1,
+                                       "Name": "name",
+                                       "RoleIds": [
+                                         1
+                                       ],
+                                       "RoleName": "超级管理员",
+                                       "Username": "username"
+                                     }
+                                   ]
+                                 ]
+                Test:           TestUsers
+FAIL
+exit status 1
+FAIL    IrisAdminApi    2.446s
+
+
+-------------------------------
+D:\goworkspace\opensource\IrisAdminApi>go test -v  -test.run TestUserCreate
+gorm open 成功
+=== RUN   TestUserCreate
+--- PASS: TestUserCreate (0.22s)
+    printer.go:85: POST /v1/admin/login HTTP/1.1
+        Content-Type: application/json; charset=utf-8
+
+        {"password":"password","username":"username"}
+    printer.go:102: HTTP/0.0 200 OK 98ms
+        Access-Control-Allow-Credentials: true
+        Access-Control-Expose-Headers: Accept, Content-Type, Content-Length, Acc
+ept-Encoding, X-Csrf-Token, Authorization
+        Content-Type: application/json; charset=UTF-8
+        Vary: Origin
+
+        {"status":true,"msg":"登陆成功","data":{"access_token":"eyJhbGciOiJIUzI1
+NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1ODA1Njg1MjAsImlhdCI6MTU4MDU2NDkyMH0.7Xm0UtlY0J9
+6HdjTRliXiCk6wf5SR__boYxNEjKyyT8"}}
+    printer.go:85: POST /v1/admin/users HTTP/1.1
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1O
+DA1Njg1MjAsImlhdCI6MTU4MDU2NDkyMH0.7Xm0UtlY0J96HdjTRliXiCk6wf5SR__boYxNEjKyyT8
+        Content-Type: application/json; charset=utf-8
+
+        {"name":"name","password":"password","role_ids":[2],"username":"test_use
+r"}
+    printer.go:102: HTTP/0.0 200 OK 106ms
+        Access-Control-Allow-Credentials: true
+        Access-Control-Expose-Headers: Accept, Content-Type, Content-Length, Acc
+ept-Encoding, X-Csrf-Token, Authorization
+        Content-Type: application/json; charset=UTF-8
+        Vary: Origin
+
+        {"status":true,"msg":"操作成功","data":null}
+PASS
+ok      IrisAdminApi    2.191s
