@@ -19,7 +19,7 @@ type App struct {
 	Port          string
 	LoggerLevel   string
 	DirverType    string
-	CreateSysData bool
+	//CreateSysData int
 }
 
 type Mysql struct {

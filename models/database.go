@@ -75,7 +75,8 @@ func Register(rc *transformer.Conf) {
 *初始化系统 账号 权限 角色
  */
 func CreateSystemData(rc *transformer.Conf, perms []*validates.PermissionRequest) {
-	if rc.App.CreateSysData {
+	//if rc.App.CreateSysData == 1 {
+	if true {
 		permIds := CreateSystemAdminPermission(perms) //初始化权限
 		role := CreateSystemAdminRole(permIds)        //初始化角色
 		if role.ID != 0 {

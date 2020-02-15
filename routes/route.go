@@ -4,7 +4,6 @@ import (
 	"apiadmin/controllers"
 	"apiadmin/middleware"
 	"apiadmin/models"
-	"github.com/betacraft/yaag/irisyaag"
 	"github.com/kataras/iris/v12"
 )
 
@@ -27,7 +26,7 @@ func Register(api *iris.Application) {
 				casbinMiddleware := middleware.New(models.Enforcer)                  //casbin for gorm                                                   // <- IMPORTANT, register the middleware.
 				admin.Use(middleware.JwtHandler().Serve, casbinMiddleware.ServeHTTP) //登录验证
 				admin.Get("/logout", controllers.UserLogout).Name = "退出"
-				v1.Use(irisyaag.New())
+				//v1.Use(irisyaag.New())
 				admin.PartyFunc("/users", func(users iris.Party) {
 					users.Get("/", controllers.GetAllUsers).Name = "用户列表123"
 					users.Get("/{id:uint}", controllers.GetUser).Name = "用户详情"
