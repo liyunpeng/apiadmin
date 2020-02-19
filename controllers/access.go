@@ -74,3 +74,10 @@ func UserLogout(ctx iris.Context) {
 	ctx.StatusCode(http.StatusOK)
 	_, _ = ctx.JSON(ApiResource(true, nil, "退出"))
 }
+
+func RepsonseJson(ctx iris.Context) {
+	ctx.Application().Logger().Infof("RepsonseJson")
+	ctx.StatusCode(http.StatusOK)
+	v1 := []string{"one", "two"}
+	_, _ = ctx.JSON(ApiResource(true, v1, "RepsonseJson message"))
+}

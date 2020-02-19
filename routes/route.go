@@ -24,6 +24,7 @@ func Register(api *iris.Application) {
 			v1.PartyFunc("/admin", func(admin iris.Party) {
 
 				casbinMiddleware := middleware.New(models.Enforcer)                  //casbin for gorm                                                   // <- IMPORTANT, register the middleware.
+				admin.Get("/resps_json", controllers.RepsonseJson).Name = "apiResponseJson"
 				admin.Use(middleware.JwtHandler().Serve, casbinMiddleware.ServeHTTP) //登录验证
 				admin.Get("/logout", controllers.UserLogout).Name = "退出"
 				//v1.Use(irisyaag.New())

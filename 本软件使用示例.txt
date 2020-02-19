@@ -1,0 +1,3 @@
+postman:
+get localhost:8081/v1/admin/login/
+body ： {"username":"username", "password":"password"}
