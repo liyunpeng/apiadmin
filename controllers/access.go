@@ -23,6 +23,8 @@ import (
 * @apiSuccess {bool} state 状态
 * @apiSuccess {String} data 返回数据
 * @apiPermission null
+
+
  */
 func UserLogin(ctx iris.Context) {
 	aul := new(validates.LoginRequest)

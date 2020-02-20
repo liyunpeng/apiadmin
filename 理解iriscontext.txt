@@ -10,9 +10,11 @@ id, _ := ctx.Params().GetUint("id")
 userId := ctx.Values().Get("auth_user_id").(uint)
 
 2. 返回给用户的相应信息：
-发出statuscode响应：
+2.1 发出statuscode响应：
 ctx.StatusCode(iris.StatusOK)
-向客户发出json格式数据：
+
+2.2 向客户发出json格式数据：
+json是api服务返回给客户端的
 ctx.JSON(ApiResource(false, nil, err.Error()))
 ApiResource构造出一个response结构体：
 type Response struct {
@@ -22,5 +24,10 @@ type Response struct {
 }
 func ApiResource(status bool, objects interface{}, msg string) (r *Response) {
 	r = &Response{Status: status, Data: objects, Msg: msg}
-	return
+	return r
 }
+
+2.2 返回view
+api.Get("/", func(ctx iris.Context) { // 首页模块
+			_ = ctx.View("index.html")
+		})
